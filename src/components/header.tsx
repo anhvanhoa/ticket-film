@@ -17,7 +17,7 @@ const dataNavigate = [
 ];
 const header = ({}: Props) => {
     return (
-        <section className='backdrop-blur-md border-b sticky top-0 z-50 bg-white/70'>
+        <section className='backdrop-blur-md border-b sticky top-0 z-50 bg-white'>
             <div className='max-w-screen-xl mx-auto py-4 flex justify-between items-center'>
                 <div>
                     <Link href='/'>
@@ -27,7 +27,7 @@ const header = ({}: Props) => {
                 <div className='flex items-center'>
                     <div className='flex items-center gap-8 *:font-semibold hover:*:text-[#055398] *:transition-all'>
                         {dataNavigate.map((nav) => (
-                            <Link href={nav.href} key={nav.id}>
+                            <Link href={nav.href} key={nav.id} className='hidden'>
                                 {nav.name}
                             </Link>
                         ))}
