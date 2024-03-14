@@ -1,54 +1,48 @@
-import Image from 'next/image';
 import React from 'react';
-import { PlayCircle, Ticket } from 'lucide-react';
-import { Button } from '~/components/ui/button';
+import FilmDetail from '~/components/filmDetail';
+import BookTicket from '~/components/bookTicket';
+import NowShow from './nowShow';
+import ChooseLocation from '~/components/chooseLocation';
+import { Film } from '~/types/film';
+
+const film: Film = {
+    id: 1,
+    title: 'MAI',
+    slug: 'mai-2024',
+    star: 9.8,
+    category: 'Lãng Mạn',
+    video: 'https://www.youtube.com/embed/Yz96EBNwMGw?autoplay=1',
+    poster: '/poster.jpg',
+    type: '18+',
+    description:
+        '"Mai" xoay quanh cuộc đời của một người phụ nữ đẹp tên Mai (do Phương Anh Đào thủ vai) có số phận rất đặc biệt. Bởi làm nghề mát xa, Mai thường phải đối mặt với ánh nhìn soi mói, phán xét từ những người xung quanh. Và rồi Mai gặp Dương (Tuấn Trần) - chàng trai đào hoa lãng tử. Những tưởng bản thân không còn thiết tha yêu đương và mưu cầu hạnh phúc cho riêng mình thì khao khát được sống một cuộc đời mới trong Mai trỗi dậy khi Dương tấn công cô không khoan nhượng. Họ cho mình những khoảnh khắc tự do, say đắm và tràn đầy tiếng cười. Liệu cặp đôi ấy có nắm giữ được niềm hạnh phúc đó dài lâu khi miệng đời lắm khi cay nghiệt, bất công?'
+};
 
 const page = () => {
     return (
-        <div className='relative'>
-            <div className='z-10 absolute inset-0 from-black/50 to-black/90 bg-gradient-to-b'>
-                <div className='max-w-screen-xl mx-auto'>
-                    <div className='flex h-full p-12'>
-                        <div className='flex-shrink-0'>
-                            <Image
-                                className='w-60'
-                                src={'/poster.jpg'}
-                                alt='MAI'
-                                width={300}
-                                height={500}
-                            />
+        <div>
+            <FilmDetail film={film} />
+            <div className='max-w-screen-xl mx-auto mt-12 mb-8'>
+                <div className='grid grid-cols-3 gap-x-8'>
+                    <div className='col-span-2'>
+                        <div className='flex justify-between items-end gap-x-4'>
+                            <h3 className='text-xl font-bold'>Lịch chiếu Mai</h3>
+                            <div className='flex-shrink-0 flex items-center gap-x-6'>
+                                <ChooseLocation />
+                            </div>
                         </div>
-                        <div className='ml-8'>
-                            <div className='bg-red-800 p-0.5 inline-block rounded-[2px] text-xs'>
-                                18+
-                            </div>
-                            <h2 className='text-4xl font-semibold mt-6'>MAI</h2>
-                            <p className='text-white/70 mt-2'>MAI - 151 phút</p>
-                            <div className='max-w-xl leading-6 font-light mt-4'>
-                                &ldquo;Mai&ldquo; xoay quanh cuộc đời của một người phụ nữ
-                                đẹp tên Mai (do Phương Anh Đào thủ vai) có số phận rất đặc
-                                biệt. Bởi làm nghề mát xa, Mai thường phải đối mặt với ánh
-                                nhìn soi mói, phán xét từ những người xung quanh. Và rồi
-                                Mai gặp Dương (Tuấn Trần) - chàng trai đào hoa lãng tử.
-                            </div>
-                            <div className='pt-4 flex gap-4'>
-                                <Button>
-                                    <Ticket size={18} className='mr-2' />
-                                    Đặt vé
-                                </Button>
-                                <Button variant={'outline'} className='border-white/20'>
-                                    <PlayCircle size={18} className='mr-2' />
-                                    Xem trailer
-                                </Button>
-                            </div>
+                        <div>
+                            <BookTicket />
+                        </div>
+                    </div>
+                    <div className='col-span-1 ml-8'>
+                        <h2 className='text-xl font-bold'>Phim đang chiếu</h2>
+                        <div className='mt-4'>
+                            <NowShow film={film} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div
-                className='bg-cover h-[450px]'
-                style={{ backgroundImage: 'url(/bg-mai.jpg)' }}
-            ></div>
         </div>
     );
 };

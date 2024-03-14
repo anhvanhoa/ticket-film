@@ -20,7 +20,7 @@ const Slider = ({ children }: Props) => {
         return () => {
             clearInterval(timeID);
         };
-    }, []);
+    }, [parentSlider]);
     return (
         <div>
             <div className='overflow-hidden relative'>

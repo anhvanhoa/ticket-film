@@ -1,30 +1,39 @@
-import React from 'react';
+'use client';
+import { useState } from 'react';
 import Film from './film';
+import SliderFilm from './sliderFilm';
+import Trailer from './trailer';
+import { Film as InterfaceFilm } from '~/types/film';
 
-const ComingSoon = () => {
+interface Props {
+    films: InterfaceFilm[];
+}
+const ComingSoon = ({ films }: Props) => {
+    const [trailer, setTrailer] = useState<null | InterfaceFilm>(null);
+    const changeTrailer = (film: InterfaceFilm) => () => setTrailer(film);
     return (
-        <div>
-            <div className='max-w-screen-xl mx-auto mt-8'>
-                <h2 className='text-2xl font-medium'>Sắp chiếu</h2>
-                <div className='grid grid-cols-6 mt-8 gap-4'>
-                    <Film
-                        image='/poster.jpg'
-                        start={9.8}
-                        title='MAI'
-                        typeFilm='lang man'
-                    />
-                    <Film
-                        image='/poster.jpg'
-                        start={9.8}
-                        title='MAI'
-                        typeFilm='lang man'
-                    />
-                    <Film
-                        image='/poster.jpg'
-                        start={9.8}
-                        title='MAI'
-                        typeFilm='lang man'
-                    />
+        <div className='mt-12 bg-black text-white'>
+            <div className='bg-[url(/bg-coming-soon.jpg)] bg-contain bg-no-repeat bg-center py-12'>
+                <div className='max-w-screen-xl mx-auto'>
+                    <h2 className='text-3xl font-bold text-center'>Phim sắp chiếu</h2>
+                    <div className='mt-12'>
+                        <SliderFilm className='-mx-2'>
+                            {films.map((film) => (
+                                <div key={film.id} className='w-1/5 px-2'>
+                                    <Film film={film} onClickPlay={changeTrailer(film)} />
+                                </div>
+                            ))}
+                        </SliderFilm>
+                    </div>
+                    {trailer && (
+                        <Trailer
+                            category={trailer.category}
+                            description={trailer.description}
+                            title={trailer.title}
+                            video={trailer.video}
+                            onClose={() => setTrailer(null)}
+                        />
+                    )}
                 </div>
             </div>
         </div>

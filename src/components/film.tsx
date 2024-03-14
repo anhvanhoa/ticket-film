@@ -1,59 +1,53 @@
-'use client';
-import React, { useState } from 'react';
 import Image from 'next/image';
 import { PlayCircle, Star } from 'lucide-react';
-import Trailer from './trailer';
+import TypeFilm from './typeFilm';
+import { Film as InterfaceFilm } from '~/types/film';
+import Link from 'next/link';
 interface Props {
-    image: string;
-    title: string;
-    typeFilm: string;
-    star: number;
-    description: string;
-    video: string;
+    film: InterfaceFilm;
+    onClickPlay?: () => void;
 }
-const Film = ({ image, title, typeFilm, star, description, video }: Props) => {
-    const [movie, setMovie] = useState(false);
-    const changeTrailer = (type: boolean) => () => setMovie(type);
+const Film = ({ film, onClickPlay }: Props) => {
     return (
         <div>
-            <div className='group'>
-                <div className='h-64 overflow-hidden rounded-md relative'>
+            <div>
+                <div className='aspect-[4/6] overflow-hidden rounded-md relative group'>
+                    <div className='z-20 absolute top-2 left-2'>
+                        <TypeFilm typeFilm={film.type} />
+                    </div>
                     <Image
-                        src={image}
-                        alt={title}
+                        src={film.poster}
+                        alt={film.title}
                         width={300}
                         height={500}
                         className='h-full cursor-pointer group-hover:scale-105 transition-all'
                     />
-                    <div className='absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2'>
+                    <div className='group-hover:opacity-100 absolute inset-0 opacity-0 flex items-center justify-center bg-black/20 transition-all'>
                         <PlayCircle
-                            className='cursor-pointer'
-                            onClick={changeTrailer(true)}
+                            onClick={onClickPlay}
+                            className='cursor-pointer text-white'
                             size={42}
                             strokeWidth={1}
-                            fill='#000'
-                            fillOpacity={0.2}
                         />
                     </div>
                 </div>
-                <div className='pt-2 *:mt-1.5 cursor-pointer'>
-                    <h2 className='font-medium text-sm'>{title}</h2>
-                    <p className='text-xs font-thin'>{typeFilm}</p>
-                    <p className='text-xs flex items-center'>
+                <div className='pt-3.5'>
+                    <Link href={`/${film.slug}`}>
+                        <div className='group'>
+                            <h2 className='overflow-hidden text-ellipsis whitespace-nowrap'>
+                                <p className='font-medium cursor-pointer group-hover:underline'>
+                                    {film.title}
+                                </p>
+                            </h2>
+                            <p className='text-xs py-1 text-gray-500'>{film.category}</p>
+                        </div>
+                    </Link>
+                    <p className='text-xs flex items-center py-1'>
                         <Star color='#FBBF24' size={14} fill='#FBBF24' />
-                        <span className='ml-1 leading-4'>{star}</span>
+                        <span className='ml-1 leading-4'>{film.star}</span>
                     </p>
                 </div>
             </div>
-            {movie && (
-                <Trailer
-                    title={title}
-                    video={video}
-                    description={description}
-                    typeFilm={typeFilm}
-                    onClose={changeTrailer(false)}
-                />
-            )}
         </div>
     );
 };
