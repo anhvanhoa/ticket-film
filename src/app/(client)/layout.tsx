@@ -1,3 +1,4 @@
+import Footer from '~/components/footer';
 import Header from '~/components/header';
 export default function RootLayout({
     children
@@ -8,6 +9,7 @@ export default function RootLayout({
         <section className='bg-[var(--background)] max-h-screen overflow-auto'>
             <Header />
             <section>{children}</section>
+            <Footer />
         </section>
     );
 }
