@@ -32,14 +32,21 @@ const header = ({}: Props) => {
                             </Link>
                         ))}
                     </div>
-                    <Link href='/login'>
-                        <Button
-                            className='border-gray-50/2 ml-10 bg-[#055398] hover:bg-[#055398]/90 font-semibold'
-                            size='sm'
+                    <div className='flex items-center gap-3'>
+                        <Link
+                            href='/login'
+                            className='font-semibold hover:text-[#055398] hover:underline'
+                        >
+                            Đăng ký
+                        </Link>
+                        <div className='text-gray-300'>|</div>
+                        <Link
+                            href='/login'
+                            className='font-semibold hover:text-[#055398] hover:underline'
                         >
                             Đăng nhập
-                        </Button>
-                    </Link>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </section>
